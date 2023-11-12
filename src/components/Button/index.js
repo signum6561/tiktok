@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
 import { Link } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 
 const cx = classNames.bind(styles);
 
@@ -28,12 +29,12 @@ function Button({
     delete props.onClick;
   }
 
-  if (to) {
-    props.to = to;
-    Comp = Link;
-  } else if (href) {
+  if (href) {
     props.href = href;
     Comp = 'a';
+  } else {
+    props.to = to;
+    Comp = Link;
   }
   const classes = cx('wrapper', type, size, {
     [className]: className,
@@ -42,9 +43,9 @@ function Button({
   });
   return (
     <Comp className={classes} {...props}>
-      {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+      {leftIcon && <Icon className={cx('icon')} icon={leftIcon} />}
       <span className={cx('title')}>{children}</span>
-      {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
+      {rightIcon && <Icon className={cx('icon')} icon={rightIcon} />}
     </Comp>
   );
 }
